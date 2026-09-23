@@ -1,0 +1,359 @@
+/* Radio Free DeLand — tabloid stylesheet. Punchy and loud. */
+:root {
+  --ink: #141414;
+  --paper: #fffdf4;
+  --red: #c8102e;
+  --red-dark: #8f0a20;
+  --yellow: #ffd200;
+  --blue: #0b3d91;
+  --gray: #5a5a5a;
+  --rule: #141414;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.55;
+}
+
+/* ---------- Masthead ---------- */
+.masthead {
+  background: var(--ink);
+  color: #fff;
+  border-bottom: 8px solid var(--red);
+}
+.masthead-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 18px 16px 14px;
+  text-align: center;
+}
+.station-kicker {
+  font-family: "Arial Black", Arial, sans-serif;
+  font-size: 13px;
+  letter-spacing: 4px;
+  color: var(--yellow);
+  text-transform: uppercase;
+}
+.station-name {
+  font-family: "Arial Black", Impact, Arial, sans-serif;
+  font-size: clamp(44px, 9vw, 96px);
+  line-height: 0.95;
+  margin: 6px 0 2px;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+}
+.station-name .free { color: var(--red); }
+.station-tagline {
+  font-family: Arial, sans-serif;
+  font-style: italic;
+  font-size: clamp(15px, 2.6vw, 21px);
+  color: #f2f2f2;
+  margin: 4px 0 0;
+}
+
+/* ---------- Nav ---------- */
+nav.mainnav {
+  background: var(--red);
+  border-bottom: 4px solid var(--ink);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+nav.mainnav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+nav.mainnav a {
+  display: block;
+  padding: 11px 16px;
+  color: #fff;
+  font-family: "Arial Black", Arial, sans-serif;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+nav.mainnav a:hover, nav.mainnav a.active {
+  background: var(--ink);
+  color: var(--yellow);
+}
+
+/* ---------- Layout ---------- */
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 16px 48px;
+}
+.section-head {
+  font-family: "Arial Black", Impact, Arial, sans-serif;
+  text-transform: uppercase;
+  font-size: clamp(26px, 5vw, 44px);
+  line-height: 1;
+  margin: 38px 0 6px;
+  border-bottom: 5px solid var(--ink);
+  padding-bottom: 8px;
+}
+.section-head .bang { color: var(--red); }
+.section-sub {
+  font-family: Arial, sans-serif;
+  color: var(--gray);
+  font-size: 15px;
+  margin: 0 0 20px;
+}
+
+/* ---------- Today board ---------- */
+.today-board {
+  border: 4px solid var(--ink);
+  background: #fff;
+  box-shadow: 8px 8px 0 var(--red);
+  margin: 30px 0 10px;
+}
+.today-board > h2 {
+  margin: 0;
+  background: var(--yellow);
+  border-bottom: 4px solid var(--ink);
+  font-family: "Arial Black", Impact, Arial, sans-serif;
+  text-transform: uppercase;
+  font-size: clamp(22px, 4.5vw, 36px);
+  padding: 10px 16px;
+}
+.today-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0;
+}
+.today-cell {
+  padding: 16px;
+  border-right: 2px dashed #bbb;
+}
+.today-cell:last-child { border-right: none; }
+.today-cell .show-tag {
+  display: inline-block;
+  background: var(--ink);
+  color: var(--yellow);
+  font-family: "Arial Black", Arial, sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 3px 8px;
+  margin-bottom: 8px;
+}
+.today-cell h3 {
+  font-family: "Arial Black", Arial, sans-serif;
+  font-size: 18px;
+  margin: 0 0 4px;
+  line-height: 1.2;
+}
+.today-cell .ep-date {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+/* ---------- Episode cards ---------- */
+.episode {
+  border: 3px solid var(--ink);
+  background: #fff;
+  margin: 22px 0;
+  box-shadow: 6px 6px 0 rgba(20,20,20,0.9);
+}
+.episode.latest { box-shadow: 6px 6px 0 var(--red); }
+.ep-kicker {
+  background: var(--ink);
+  color: #fff;
+  font-family: "Arial Black", Arial, sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 8px 14px;
+}
+.episode.latest .ep-kicker { background: var(--red); color: #fff; }
+.ep-kicker .newflag {
+  background: var(--yellow);
+  color: var(--ink);
+  padding: 2px 8px;
+  margin-right: 10px;
+}
+.ep-body { padding: 16px 18px 20px; }
+.ep-title {
+  font-family: "Arial Black", Impact, Arial, sans-serif;
+  font-size: clamp(22px, 4vw, 34px);
+  line-height: 1.05;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+}
+.ep-deck {
+  font-size: 16px;
+  margin: 0 0 14px;
+  color: #333;
+}
+audio { width: 100%; margin-top: 4px; }
+.dl-link {
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  margin-top: 8px;
+  display: inline-block;
+}
+
+/* ---------- Lineup ---------- */
+.lineup {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
+  margin-top: 18px;
+}
+.show-card {
+  border: 3px solid var(--ink);
+  background: #fff;
+  box-shadow: 5px 5px 0 var(--ink);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.show-card img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  border-bottom: 3px solid var(--ink);
+  background: #222;
+}
+.show-card .duo { display: flex; }
+.show-card .duo img { width: 50%; }
+.show-card-body { padding: 14px 14px 16px; flex: 1; display: flex; flex-direction: column; }
+.show-card h3 {
+  font-family: "Arial Black", Arial, sans-serif;
+  font-size: 19px;
+  text-transform: uppercase;
+  margin: 0 0 2px;
+  line-height: 1.15;
+}
+.show-card .hosts {
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-size: 13px;
+  color: var(--red);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+.show-card p.blurb { font-size: 14.5px; margin: 0 0 12px; color: #333; flex: 1; }
+.btn {
+  display: inline-block;
+  background: var(--red);
+  color: #fff;
+  font-family: "Arial Black", Arial, sans-serif;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 1px;
+  padding: 10px 16px;
+  text-decoration: none;
+  border: 2px solid var(--ink);
+  text-align: center;
+}
+.btn:hover { background: var(--ink); color: var(--yellow); }
+
+/* ---------- Jingle strip ---------- */
+.jingle-strip {
+  background: var(--ink);
+  color: #fff;
+  border: 4px solid var(--ink);
+  margin: 30px 0;
+  padding: 18px 20px;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  flex-wrap: wrap;
+  box-shadow: 8px 8px 0 var(--yellow);
+}
+.jingle-strip h2 {
+  font-family: "Arial Black", Impact, Arial, sans-serif;
+  text-transform: uppercase;
+  font-size: clamp(20px, 4vw, 30px);
+  margin: 0;
+  color: var(--yellow);
+}
+.jingle-strip p { margin: 4px 0 0; font-size: 14px; color: #ddd; font-family: Arial, sans-serif; }
+.jingle-strip audio { flex: 1 1 280px; }
+
+/* ---------- Promos ---------- */
+.promos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  margin-top: 16px;
+}
+.promo { border: 3px solid var(--ink); background: #000; box-shadow: 5px 5px 0 var(--ink); }
+.promo video { width: 100%; display: block; }
+.promo p {
+  margin: 0; padding: 8px 12px;
+  background: #fff; border-top: 3px solid var(--ink);
+  font-family: "Arial Black", Arial, sans-serif; font-size: 13px; text-transform: uppercase;
+}
+
+/* ---------- About ---------- */
+.about-hero {
+  background: var(--yellow);
+  border: 4px solid var(--ink);
+  padding: 22px 24px;
+  margin: 30px 0;
+  box-shadow: 8px 8px 0 var(--red);
+}
+.about-hero h2 {
+  font-family: "Arial Black", Impact, Arial, sans-serif;
+  text-transform: uppercase;
+  font-size: clamp(24px, 5vw, 40px);
+  margin: 0 0 10px;
+  line-height: 1.05;
+}
+.about-body { font-size: 17px; max-width: 760px; }
+.about-body h3 {
+  font-family: "Arial Black", Arial, sans-serif;
+  text-transform: uppercase;
+  font-size: 20px;
+  margin: 30px 0 8px;
+  color: var(--red-dark);
+}
+.disclosure-box {
+  border: 4px solid var(--red);
+  background: #fff;
+  padding: 18px 22px;
+  margin: 26px 0;
+}
+.disclosure-box h3 { margin-top: 0; }
+footer {
+  background: var(--ink);
+  color: #ccc;
+  border-top: 8px solid var(--red);
+  margin-top: 40px;
+}
+footer .wrap { padding-top: 26px; padding-bottom: 26px; }
+footer p { font-family: Arial, sans-serif; font-size: 13.5px; margin: 6px 0; }
+footer a { color: var(--yellow); }
+.footer-fic {
+  font-family: "Arial Black", Arial, sans-serif;
+  text-transform: uppercase;
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 560px) {
+  .today-cell { border-right: none; border-bottom: 2px dashed #bbb; }
+  .today-cell:last-child { border-bottom: none; }
+}
