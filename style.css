@@ -357,3 +357,14 @@ footer a { color: var(--yellow); }
   .today-cell { border-right: none; border-bottom: 2px dashed #bbb; }
   .today-cell:last-child { border-bottom: none; }
 }
+
+/* ---------- Welcome popup (first visit) ---------- */
+.welcome-modal { position: fixed; inset: 0; z-index: 9999; background: rgba(20,20,20,.84); display: flex; align-items: center; justify-content: center; padding: 16px; }
+.welcome-modal[hidden] { display: none; }
+.welcome-box { position: relative; width: 100%; max-width: 600px; background: var(--ink); border: 6px solid var(--red); box-shadow: 0 0 0 4px var(--yellow), 0 18px 60px rgba(0,0,0,.6); }
+.welcome-box video { display: block; width: 100%; height: auto; background: #000; }
+.welcome-close { position: absolute; top: -22px; right: -22px; width: 44px; height: 44px; border-radius: 50%; background: var(--red); color: #fff; border: 3px solid var(--yellow); font-size: 26px; line-height: 1; cursor: pointer; font-family: Arial, sans-serif; padding: 0; }
+.welcome-close:hover { background: var(--ink); }
+.welcome-controls { display: flex; gap: 10px; justify-content: center; padding: 12px; background: var(--ink); }
+.welcome-controls .btn { cursor: pointer; border: 2px solid var(--yellow); }
+body.welcome-open { overflow: hidden; }

@@ -140,6 +140,17 @@
   </div>
 </footer>
 
+<div class="welcome-modal" id="welcomeModal" hidden>
+  <div class="welcome-box" role="dialog" aria-modal="true" aria-label="Welcome to Radio Free DeLand">
+    <button class="welcome-close" id="welcomeClose" aria-label="Close welcome popup">&times;</button>
+    <video id="welcomeVideo" src="promos/host-welcome-popup.mp4" muted playsinline preload="auto"></video>
+    <div class="welcome-controls">
+      <button class="btn" id="welcomeSound" type="button">Tap for sound</button>
+      <button class="btn" id="welcomeReplay" type="button">Replay</button>
+    </div>
+  </div>
+</div>
+
 <script>
 document.addEventListener('play', function (e) {
   var players = document.getElementsByTagName('audio');
@@ -147,6 +158,46 @@ document.addEventListener('play', function (e) {
     if (players[i] !== e.target) { players[i].pause(); }
   }
 }, true);
+</script>
+
+<script>
+(function () {
+  var modal = document.getElementById('welcomeModal');
+  var video = document.getElementById('welcomeVideo');
+  if (!modal || !video) return;
+  var dismissed = false;
+  function playVideo() {
+    var p = video.play();
+    if (p && p.catch) { p.catch(function () {}); }
+  }
+  function openWelcome() {
+    if (dismissed) return;
+    var players = document.getElementsByTagName('audio');
+    for (var i = 0; i < players.length; i++) { players[i].pause(); }
+    modal.hidden = false;
+    document.body.classList.add('welcome-open');
+    playVideo();
+  }
+  function closeWelcome() {
+    dismissed = true;
+    video.pause();
+    modal.hidden = true;
+    document.body.classList.remove('welcome-open');
+  }
+  document.getElementById('welcomeClose').addEventListener('click', closeWelcome);
+  modal.addEventListener('click', function (e) { if (e.target === modal) { closeWelcome(); } });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !modal.hidden) { closeWelcome(); } });
+  document.getElementById('welcomeSound').addEventListener('click', function () {
+    video.muted = false;
+    playVideo();
+    this.textContent = 'Sound on';
+  });
+  document.getElementById('welcomeReplay').addEventListener('click', function () {
+    video.currentTime = 0;
+    playVideo();
+  });
+  window.setTimeout(openWelcome, 1000);
+})();
 </script>
 
 </body>
