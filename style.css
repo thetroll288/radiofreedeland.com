@@ -367,4 +367,6 @@ footer a { color: var(--yellow); }
 .welcome-close:hover { background: var(--ink); }
 .welcome-controls { display: flex; gap: 10px; justify-content: center; padding: 12px; background: var(--ink); }
 .welcome-controls .btn { cursor: pointer; border: 2px solid var(--yellow); }
+.welcome-nomore { display: block; text-align: center; padding: 0 12px 12px; background: var(--ink); color: #fff; font-size: 14px; cursor: pointer; }
+.welcome-nomore input { margin-right: 6px; accent-color: var(--red); }
 body.welcome-open { overflow: hidden; }

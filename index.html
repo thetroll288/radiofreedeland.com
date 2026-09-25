@@ -109,6 +109,7 @@
       <button class="btn" id="welcomeSound" type="button">Tap for sound</button>
       <button class="btn" id="welcomeReplay" type="button">Replay</button>
     </div>
+    <label class="welcome-nomore"><input type="checkbox" id="welcomeNoMore"> Don't show this again</label>
   </div>
 </div>
 
@@ -127,6 +128,8 @@ document.addEventListener('play', function (e) {
   var video = document.getElementById('welcomeVideo');
   if (!modal || !video) return;
   var dismissed = false;
+  var nomore = document.getElementById('welcomeNoMore');
+  try { if (window.localStorage && localStorage.getItem('rfd-welcome-dismissed') === '1') return; } catch (e) {}
   function playVideo() {
     var p = video.play();
     if (p && p.catch) { p.catch(function () {}); }
@@ -141,6 +144,7 @@ document.addEventListener('play', function (e) {
   }
   function closeWelcome() {
     dismissed = true;
+    try { if (nomore && nomore.checked && window.localStorage) { localStorage.setItem('rfd-welcome-dismissed', '1'); } } catch (e) {}
     video.pause();
     modal.hidden = true;
     document.body.classList.remove('welcome-open');
