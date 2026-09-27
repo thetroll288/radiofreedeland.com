@@ -4,8 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Listen Live — Radio Free DeLand</title>
-<meta name="description" content="Radio Free DeLand broadcasting around the clock: The Danner Line, Loud & Clear, and Left Turn at Five on one endless loop.">
+<meta name="description" content="Radio Free DeLand broadcasting around the clock: The Danner Line, Loud & Clear, Left Turn at Five, and The Watch List on one endless loop.">
 <link rel="stylesheet" href="style.css">
+<style>
+.live-dot{display:inline-block;width:.7em;height:.7em;border-radius:50%;background:#e00;margin-right:.4em;animation:pulse 1.2s infinite}
+@keyframes pulse{0%{opacity:1}50%{opacity:.25}100%{opacity:1}}
+.tunein{display:inline-block;margin:1em 0;padding:.8em 2.2em;font-size:1.25em;font-weight:800;letter-spacing:.05em;color:#fff;background:#c00;border:0;border-radius:6px;cursor:pointer}
+.tunein:hover{background:#a00}
+.tunein:disabled{background:#666;cursor:default}
+.nownext{margin:1em 0}
+.nownext .lbl{font-size:.8em;text-transform:uppercase;letter-spacing:.1em;color:#666}
+.nownext .np{font-size:1.3em;font-weight:800}
+.nownext .un{font-size:1em}
+#sync-note{font-size:.9em;color:#555}
+</style>
 </head>
 <body>
 
@@ -32,15 +44,22 @@
 <div class="wrap">
 
   <h2 class="section-head">On the air <span class="bang">!</span></h2>
-  <p class="section-sub">Radio Free DeLand, broadcasting around the clock. Every episode of every show, back to back, forever. New episodes join the rotation automatically within the hour they publish.</p>
+  <p class="section-sub">Radio Free DeLand, broadcasting around the clock. Every episode of every show, back to back, forever. New episodes join the rotation automatically.</p>
 
   <article class="episode latest">
-    <div class="ep-kicker"><span class="newflag">Live</span> The endless loop &bull; 24/7</div>
+    <div class="ep-kicker"><span class="newflag"><span class="live-dot"></span>Live</span> The endless loop &bull; 24/7</div>
     <div class="ep-body">
-      <h3 class="ep-title">Tap play. It never stops.</h3>
-      <p class="ep-deck">The Danner Line, Loud &amp; Clear, and Left Turn at Five in one continuous stream. If it doesn&rsquo;t play yet, the transmitter is still warming up &mdash; try again in a few minutes.</p>
-      <audio controls preload="none" src="https://stream.radiofreedeland.com/radio.mp3"></audio>
-      <p class="ep-deck">Direct stream link for your favorite radio app:<br><a href="https://stream.radiofreedeland.com/radio.mp3">https://stream.radiofreedeland.com/radio.mp3</a></p>
+      <h3 class="ep-title">Tap tune in. It never stops.</h3>
+      <p class="ep-deck">The Danner Line, Loud &amp; Clear, Left Turn at Five, and The Watch List in one continuous broadcast. Your player syncs to the station clock &mdash; you hear exactly what every other listener hears, right now.</p>
+      <div><button id="tunein" class="tunein">TUNE IN</button></div>
+      <audio id="live-audio" controls preload="none" style="width:100%"></audio>
+      <div class="nownext">
+        <div class="lbl">Now playing</div>
+        <div class="np" id="now-playing">&mdash;</div>
+        <div class="lbl" style="margin-top:.6em">Up next</div>
+        <div class="un" id="up-next">&mdash;</div>
+      </div>
+      <p class="ep-deck" id="sync-note"></p>
     </div>
   </article>
 
@@ -53,6 +72,73 @@
     <p>&copy; 2026 Radio Free DeLand &mdash; DeLand, Florida &mdash; &ldquo;The Heart and Soul of Volusia County.&rdquo;</p>
   </div>
 </footer>
+
+<script>
+(function(){
+  var MAN=null, curIndex=-1, skips=0;
+  var audio=document.getElementById('live-audio');
+  var btn=document.getElementById('tunein');
+  var nowEl=document.getElementById('now-playing');
+  var nextEl=document.getElementById('up-next');
+  var noteEl=document.getElementById('sync-note');
+
+  function stationPos(nowMs){
+    var total=0, i;
+    for(i=0;i<MAN.episodes.length;i++) total+=MAN.episodes[i].duration;
+    var t=((nowMs/1000-MAN.epoch)%total+total)%total;
+    for(i=0;i<MAN.episodes.length;i++){
+      if(t<MAN.episodes[i].duration) return {i:i, off:t};
+      t-=MAN.episodes[i].duration;
+    }
+    return {i:0, off:0};
+  }
+  function label(ep){ return ep.show+' \u2014 '+ep.title; }
+  function updateNowNext(){
+    var n=MAN.episodes.length;
+    nowEl.textContent=label(MAN.episodes[curIndex]);
+    nextEl.textContent=label(MAN.episodes[(curIndex+1)%n]);
+    var mins=Math.round(MAN.episodes.reduce(function(a,e){return a+e.duration;},0)/60);
+    noteEl.textContent='Synced to the station clock. '+n+' episodes, about '+
+      Math.floor(mins/60)+'h '+(mins%60)+'m per loop \u2014 then it all plays again.';
+  }
+  function playAt(i, off){
+    if(skips>=MAN.episodes.length){ nowEl.textContent='Signal trouble \u2014 try tuning in again.'; return; }
+    curIndex=i; updateNowNext();
+    var ep=MAN.episodes[i];
+    audio.src='audio/'+ep.file;
+    audio.load();
+    var started=false;
+    var begin=function(){
+      if(started) return; started=true;
+      try{ if(off>0 && off<ep.duration-5) audio.currentTime=off; }catch(e){}
+      var p=audio.play();
+      if(p&&p.catch) p.catch(function(){});
+    };
+    audio.onloadedmetadata=begin;
+    if(audio.readyState>=1) begin();
+  }
+  audio.addEventListener('ended',function(){ skips=0; playAt((curIndex+1)%MAN.episodes.length,0); });
+  audio.addEventListener('error',function(){ skips++; playAt((curIndex+1)%MAN.episodes.length,0); });
+  btn.addEventListener('click',function(){
+    btn.disabled=true; btn.textContent='TUNING\u2026';
+    var go=function(){
+      skips=0;
+      var p=stationPos(Date.now());
+      playAt(p.i,p.off);
+      btn.textContent='ON THE AIR \u2014 TAP TO RE-SYNC';
+      btn.disabled=false;
+    };
+    if(MAN){ go(); return; }
+    fetch('loop-manifest.json').then(function(r){
+      if(!r.ok) throw new Error('manifest');
+      return r.json();
+    }).then(function(m){ MAN=m; go(); }).catch(function(){
+      nowEl.textContent='Station clock unreachable \u2014 check your connection and retry.';
+      btn.textContent='TUNE IN'; btn.disabled=false;
+    });
+  });
+})();
+</script>
 
 </body>
 </html>
