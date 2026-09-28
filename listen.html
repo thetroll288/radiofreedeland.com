@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Listen Live — Radio Free DeLand</title>
-<meta name="description" content="Radio Free DeLand broadcasting around the clock: The Danner Line, Loud & Clear, Left Turn at Five, and The Watch List on one endless loop.">
+<meta name="description" content="Radio Free DeLand broadcasting around the clock: The Danner Line, Loud & Clear, Left Turn at Five, Sports Rap, and The Watch List on one endless loop.">
 <link rel="stylesheet" href="style.css">
 <style>
 .live-dot{display:inline-block;width:.7em;height:.7em;border-radius:50%;background:#e00;margin-right:.4em;animation:pulse 1.2s infinite}
@@ -17,6 +17,9 @@
 .nownext .np{font-size:1.3em;font-weight:800}
 .nownext .un{font-size:1em}
 #sync-note{font-size:.9em;color:#555}
+.mode-toggle{margin:1em 0 .2em}
+.modebtn{padding:.5em 1.2em;font-size:.95em;font-weight:700;letter-spacing:.03em;border:2px solid #c00;background:#fff;color:#c00;border-radius:20px;cursor:pointer;margin-right:.5em}
+.modebtn.active{background:#c00;color:#fff}
 </style>
 </head>
 <body>
@@ -51,7 +54,11 @@
     <div class="ep-kicker"><span class="newflag"><span class="live-dot"></span>Live</span> The endless loop &bull; 24/7</div>
     <div class="ep-body">
       <h3 class="ep-title">Tap tune in. It never stops.</h3>
-      <p class="ep-deck">The Danner Line, Loud &amp; Clear, Left Turn at Five, and The Watch List in one continuous broadcast. Your player syncs to the station clock &mdash; you hear exactly what every other listener hears, right now.</p>
+      <p class="ep-deck">The Danner Line, Loud &amp; Clear, Left Turn at Five, Sports Rap, and The Watch List in one continuous broadcast. Your player syncs to the station clock &mdash; you hear exactly what every other listener hears, right now.</p>
+      <div class="mode-toggle" role="group" aria-label="Loop order">
+        <button id="mode-chrono" class="modebtn active">Chronological</button>
+        <button id="mode-show" class="modebtn">By show</button>
+      </div>
       <div><button id="tunein" class="tunein">TUNE IN</button></div>
       <audio id="live-audio" controls preload="none" style="width:100%"></audio>
       <div class="nownext">
@@ -76,12 +83,16 @@
 
 <script>
 (function(){
-  var MAN=null, curIndex=-1, skips=0;
+  var MAN=null, curIndex=-1, skips=0, MODE='chrono';
+  try{ MODE=localStorage.getItem('rfd-loop-mode')||'chrono'; }catch(e){}
+  function manifestUrl(){ return MODE==='chrono' ? 'loop-manifest-chrono.json' : 'loop-manifest.json'; }
   var audio=document.getElementById('live-audio');
   var btn=document.getElementById('tunein');
   var nowEl=document.getElementById('now-playing');
   var nextEl=document.getElementById('up-next');
   var noteEl=document.getElementById('sync-note');
+  var tChrono=document.getElementById('mode-chrono');
+  var tShow=document.getElementById('mode-show');
 
   function stationPos(nowMs){
     var total=0, i;
@@ -120,23 +131,34 @@
   }
   audio.addEventListener('ended',function(){ skips=0; playAt((curIndex+1)%MAN.episodes.length,0); });
   audio.addEventListener('error',function(){ skips++; playAt((curIndex+1)%MAN.episodes.length,0); });
-  btn.addEventListener('click',function(){
+  function loadAndPlay(){
     btn.disabled=true; btn.textContent='TUNING\u2026';
-    var go=function(){
-      skips=0;
-      var p=stationPos(Date.now());
-      playAt(p.i,p.off);
-      btn.textContent='ON THE AIR \u2014 TAP TO RE-SYNC';
-      btn.disabled=false;
-    };
-    fetch('loop-manifest.json',{cache:'no-store'}).then(function(r){
+    fetch(manifestUrl(),{cache:'no-store'}).then(function(r){
       if(!r.ok) throw new Error('manifest');
       return r.json();
-    }).then(function(m){ MAN=m; go(); }).catch(function(){
+    }).then(function(m){ MAN=m; startPlayback(); }).catch(function(){
       nowEl.textContent='Station clock unreachable \u2014 check your connection and retry.';
       btn.textContent='TUNE IN'; btn.disabled=false;
     });
-  });
+  }
+  function startPlayback(){
+    skips=0;
+    var p=stationPos(Date.now());
+    playAt(p.i,p.off);
+    btn.textContent='ON THE AIR \u2014 TAP TO RE-SYNC';
+    btn.disabled=false;
+  }
+  btn.addEventListener('click',loadAndPlay);
+  function setMode(m){
+    MODE=m;
+    try{ localStorage.setItem('rfd-loop-mode',m); }catch(e){}
+    tChrono.classList.toggle('active',m==='chrono');
+    tShow.classList.toggle('active',m!=='chrono');
+    if(MAN) loadAndPlay(); // already tuned in: re-sync in the new order
+  }
+  tChrono.addEventListener('click',function(){ if(MODE!=='chrono') setMode('chrono'); });
+  tShow.addEventListener('click',function(){ if(MODE!=='show') setMode('show'); });
+  setMode(MODE);
 })();
 </script>
 

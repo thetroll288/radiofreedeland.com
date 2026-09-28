@@ -1,0 +1,153 @@
+{
+ "epoch": 1790481600,
+ "episodes": [
+  {
+   "file": "episode-001-full.mp3",
+   "show": "The Danner Line",
+   "title": "Guts or Cruelty?",
+   "kicker": "Episode 001 \u2022 Friday, September 18, 2026",
+   "duration": 1002.5
+  },
+  {
+   "file": "episode-002-full.mp3",
+   "show": "The Danner Line",
+   "title": "Free Speech or Fired?",
+   "kicker": "Episode 002 \u2022 Saturday, September 19, 2026",
+   "duration": 1454.5
+  },
+  {
+   "file": "episode-003-full.mp3",
+   "show": "The Danner Line",
+   "title": "Death Warrant #18",
+   "kicker": "Episode 003 \u2022 Sunday, September 20, 2026",
+   "duration": 868.2
+  },
+  {
+   "file": "lc-001-full.mp3",
+   "show": "Loud & Clear",
+   "title": "Your Property Taxes vs. Tallahassee",
+   "kicker": "Episode 001 \u2022 Sunday, September 20, 2026",
+   "duration": 996.8
+  },
+  {
+   "file": "episode-004-full.mp3",
+   "show": "The Danner Line",
+   "title": "Jolly Says No to Three Debates",
+   "kicker": "Episode 004 \u2022 Monday, September 21, 2026",
+   "duration": 996.7
+  },
+  {
+   "file": "lc-002-full.mp3",
+   "show": "Loud & Clear",
+   "title": "$200K of Your Money for Lawyers",
+   "kicker": "Episode 002 \u2022 Monday, September 21, 2026",
+   "duration": 1161.4
+  },
+  {
+   "file": "episode-005-full.mp3",
+   "show": "The Danner Line",
+   "title": "Nobody in Florida Is Debating Anybody",
+   "kicker": "Episode 005 \u2022 Tuesday, September 22, 2026",
+   "duration": 996.6
+  },
+  {
+   "file": "lc-003-full.mp3",
+   "show": "Loud & Clear",
+   "title": "Boris Johnson Takes the Mic at FSU Tonight",
+   "kicker": "Episode 003 \u2022 Tuesday, September 22, 2026",
+   "duration": 1039.5
+  },
+  {
+   "file": "episode-006-full.mp3",
+   "show": "The Danner Line",
+   "title": "Protest or Campaign Commercial?",
+   "kicker": "Episode 006 \u2022 Wednesday, September 23, 2026",
+   "duration": 887.5
+  },
+  {
+   "file": "lc-004-full.mp3",
+   "show": "Loud & Clear",
+   "title": "Is Direct Democracy Dead in Florida?",
+   "kicker": "Episode 004 \u2022 Wednesday, September 23, 2026",
+   "duration": 876.4
+  },
+  {
+   "file": "episode-007-full.mp3",
+   "show": "The Danner Line",
+   "title": "Toss-Up?! In THIS Florida?",
+   "kicker": "Episode 007 \u2022 Thursday, September 24, 2026",
+   "duration": 949.1
+  },
+  {
+   "file": "lc-005-full.mp3",
+   "show": "Loud & Clear",
+   "title": "Defunded?? Try $168 Million",
+   "kicker": "Episode 005 \u2022 Thursday, September 24, 2026",
+   "duration": 821.2
+  },
+  {
+   "file": "episode-008-full.mp3",
+   "show": "The Danner Line",
+   "title": "Twenty Warrants and a Press Conference",
+   "kicker": "Episode 008 \u2022 Friday, September 25, 2026",
+   "duration": 1144.3
+  },
+  {
+   "file": "lc-006-full.mp3",
+   "show": "Loud & Clear",
+   "title": "The Governor vs. the Cameras",
+   "kicker": "Episode 006 \u2022 Friday, September 25, 2026",
+   "duration": 853.3
+  },
+  {
+   "file": "lt5-001-full.mp3",
+   "show": "Left Turn at Five",
+   "title": "Ten Million and a Tirade",
+   "kicker": "Episode 001 \u2022 Friday, September 25, 2026",
+   "duration": 697.3
+  },
+  {
+   "file": "episode-009-full.mp3",
+   "show": "The Danner Line",
+   "title": "The Governor Predicts His Own Party\u2019s Funeral",
+   "kicker": "Episode 009 \u2022 Saturday, September 26, 2026",
+   "duration": 859.7
+  },
+  {
+   "file": "lc-007-full.mp3",
+   "show": "Loud & Clear",
+   "title": "Bombing After the Election",
+   "kicker": "Episode 007 \u2022 Saturday, September 26, 2026",
+   "duration": 1155.7
+  },
+  {
+   "file": "wl-001-full.mp3",
+   "show": "The Watch List",
+   "title": "Scare-Fest, True Crime, and Jessie Steals the Show",
+   "kicker": "Episode 001 \u2022 Sunday, September 27, 2026",
+   "duration": 65.2
+  },
+  {
+   "file": "episode-010-full.mp3",
+   "show": "The Danner Line",
+   "title": "The Sharpie Backfire",
+   "kicker": "Episode 010 \u2022 Sunday, September 27, 2026",
+   "duration": 993.8
+  },
+  {
+   "file": "lc-008-full.mp3",
+   "show": "Loud & Clear",
+   "title": "Bankrupt but Still Rolling",
+   "kicker": "Episode 008 \u2022 Sunday, September 27, 2026",
+   "duration": 1199.7
+  },
+  {
+   "file": "sr-001-full.mp3",
+   "show": "Sports Rap",
+   "title": "Gators Stomp #4 Ole Miss in the Swamp",
+   "kicker": "Episode 001 \u2022 Sunday, September 27, 2026",
+   "duration": 1160.8
+  }
+ ],
+ "order": "chronological"
+}
