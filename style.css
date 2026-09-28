@@ -370,3 +370,19 @@ footer a { color: var(--yellow); }
 .welcome-nomore { display: block; text-align: center; padding: 0 12px 12px; background: var(--ink); color: #fff; font-size: 14px; cursor: pointer; }
 .welcome-nomore input { margin-right: 6px; accent-color: var(--red); }
 body.welcome-open { overflow: hidden; }
+
+/* ---------- Mailbox banner (pinned top of Home) ---------- */
+.mailbox-banner {
+  display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap;
+  background: var(--red); color: #fff;
+  border-top: 4px solid var(--yellow); border-bottom: 4px solid var(--yellow);
+  padding: 10px 16px; text-decoration: none; text-align: center;
+  font-size: 1.05rem; line-height: 1.35;
+}
+.mailbox-banner:hover { background: var(--red-dark); }
+.mailbox-banner-text strong { text-transform: uppercase; letter-spacing: 1px; }
+.mailbox-banner-cta {
+  background: var(--yellow); color: var(--ink);
+  padding: 6px 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px;
+  white-space: nowrap;
+}
