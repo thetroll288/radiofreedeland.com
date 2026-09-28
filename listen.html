@@ -16,6 +16,7 @@
 .nownext .lbl{font-size:.8em;text-transform:uppercase;letter-spacing:.1em;color:#666}
 .nownext .np{font-size:1.3em;font-weight:800}
 .nownext .un{font-size:1em}
+.nownext .aired{font-size:.85em;color:#666;margin-top:.15em}
 #sync-note{font-size:.9em;color:#555}
 .mode-toggle{margin:1em 0 .2em}
 .modebtn{padding:.5em 1.2em;font-size:.95em;font-weight:700;letter-spacing:.03em;border:2px solid #c00;background:#fff;color:#c00;border-radius:20px;cursor:pointer;margin-right:.5em}
@@ -64,8 +65,10 @@
       <div class="nownext">
         <div class="lbl">Now playing</div>
         <div class="np" id="now-playing">&mdash;</div>
+        <div class="aired" id="now-aired"></div>
         <div class="lbl" style="margin-top:.6em">Up next</div>
         <div class="un" id="up-next">&mdash;</div>
+        <div class="aired" id="up-aired"></div>
       </div>
       <p class="ep-deck" id="sync-note"></p>
     </div>
@@ -91,6 +94,8 @@
   var nowEl=document.getElementById('now-playing');
   var nextEl=document.getElementById('up-next');
   var noteEl=document.getElementById('sync-note');
+  var nowAiredEl=document.getElementById('now-aired');
+  var upAiredEl=document.getElementById('up-aired');
   var tChrono=document.getElementById('mode-chrono');
   var tShow=document.getElementById('mode-show');
 
@@ -105,10 +110,18 @@
     return {i:0, off:0};
   }
   function label(ep){ return ep.show+' \u2014 '+ep.title; }
+  function airDate(ep){
+    // kicker looks like "Episode 001 • Friday, September 18, 2026"
+    var parts=String(ep.kicker||'').split('\u2022');
+    var d=parts.length>1 ? parts[parts.length-1].trim() : '';
+    return d ? 'Originally aired '+d : '';
+  }
   function updateNowNext(){
     var n=MAN.episodes.length;
     nowEl.textContent=label(MAN.episodes[curIndex]);
+    nowAiredEl.textContent=airDate(MAN.episodes[curIndex]);
     nextEl.textContent=label(MAN.episodes[(curIndex+1)%n]);
+    upAiredEl.textContent=airDate(MAN.episodes[(curIndex+1)%n]);
     var mins=Math.round(MAN.episodes.reduce(function(a,e){return a+e.duration;},0)/60);
     noteEl.textContent='Synced to the station clock. '+n+' episodes, about '+
       Math.floor(mins/60)+'h '+(mins%60)+'m per loop \u2014 then it all plays again.';
