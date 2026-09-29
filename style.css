@@ -386,3 +386,19 @@ body.welcome-open { overflow: hidden; }
   padding: 6px 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px;
   white-space: nowrap;
 }
+
+/* ---------- Town Hall special banner (featured special, above mailbox) ---------- */
+.townhall-banner {
+  display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap;
+  background: var(--ink); color: #fff;
+  border-top: 4px solid var(--red); border-bottom: 4px solid var(--red);
+  padding: 10px 16px; text-decoration: none; text-align: center;
+  font-size: 1.05rem; line-height: 1.35;
+}
+.townhall-banner:hover { background: #1c1c1c; }
+.townhall-banner-text strong { text-transform: uppercase; letter-spacing: 1px; color: var(--yellow); }
+.townhall-banner-cta {
+  background: var(--red); color: #fff;
+  padding: 6px 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px;
+  white-space: nowrap;
+}
