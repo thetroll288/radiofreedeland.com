@@ -362,5 +362,16 @@ document.addEventListener('play', function (e) {
 }, true);
 </script>
 
+<script data-goatcounter="https://radiofreedeland.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script>
+document.querySelectorAll('audio').forEach(function (a) {
+  a.addEventListener('play', function () {
+    if (a.dataset.gcCounted) return; a.dataset.gcCounted = '1';
+    var f = (a.getAttribute('src') || '').split('/').pop().replace('.mp3', '');
+    if (f && window.goatcounter && window.goatcounter.count)
+      window.goatcounter.count({path: 'play/' + f, event: true, title: 'Play: ' + f});
+  });
+});
+</script>
 </body>
 </html>
